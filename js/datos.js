@@ -15,7 +15,8 @@
  *
  *  FOTOS
  *  Rutas relativas a index.html, dentro de assets/fotos/.
- *  Si un plato no lleva foto, deja imagen: "" y alt: "".
+ *  Cada plato debe llevar su foto. Si falta, la carta
+ *  igual muestra nombre, descripción y precio.
  *
  *  PARA AGREGAR UN PLATO
  *  Copia un bloque dentro de la categoría y cambia los campos:
@@ -43,8 +44,8 @@ const RESTAURANTE = {
 
   /* ---------- Imágenes de la portada y de la historia ---------- */
   hero: {
-    imagen: "assets/fotos/hero-brasa.jpg",
-    alt: "Pulpo a la brasa con puré de papa criolla y pimentón ahumado",
+    imagen: "assets/fotos/hero-costilla.jpg",
+    alt: "Costilla corta glaseada con yuca confitada y jus",
   },
   retrato: {
     imagen: "assets/fotos/chef.jpg",
@@ -101,15 +102,15 @@ const RESTAURANTE = {
           nombre: "Croquetas de yuca",
           descripcion: "Yuca y queso costeño, con alioli de cilantro.",
           precio: 28000,
-          imagen: "",
-          alt: "",
+          imagen: "assets/fotos/plato-croquetas.jpg",
+          alt: "Croquetas de yuca y queso costeño con alioli de cilantro",
         },
         {
           nombre: "Ceviche de camarón",
           descripcion: "Camarón, leche de tigre y maíz tostado.",
           precio: 44000,
-          imagen: "",
-          alt: "",
+          imagen: "assets/fotos/plato-ceviche.jpg",
+          alt: "Ceviche de camarón con leche de tigre y maíz tostado",
         },
       ],
     },
@@ -143,8 +144,8 @@ const RESTAURANTE = {
           nombre: "Risotto de maíz",
           descripcion: "Maíz tierno, queso paipa y hongos salteados.",
           precio: 64000,
-          imagen: "",
-          alt: "",
+          imagen: "assets/fotos/plato-risotto.jpg",
+          alt: "Risotto de maíz con queso paipa y hongos salteados",
         },
       ],
     },
@@ -171,8 +172,8 @@ const RESTAURANTE = {
           nombre: "Flan de arequipe",
           descripcion: "Flan de arequipe con sal marina.",
           precio: 24000,
-          imagen: "",
-          alt: "",
+          imagen: "assets/fotos/plato-flan.jpg",
+          alt: "Flan de arequipe con caramelo y sal marina",
         },
       ],
     },
@@ -185,15 +186,15 @@ const RESTAURANTE = {
           nombre: "Limonada de hierbabuena",
           descripcion: "Limón, hierbabuena y panela.",
           precio: 12000,
-          imagen: "",
-          alt: "",
+          imagen: "assets/fotos/plato-limonada.jpg",
+          alt: "Limonada de hierbabuena con hielo",
         },
         {
           nombre: "Jugo de lulo",
           descripcion: "Lulo exprimido, sin azúcar añadida.",
           precio: 11000,
-          imagen: "",
-          alt: "",
+          imagen: "assets/fotos/plato-lulo.jpg",
+          alt: "Vaso de jugo de lulo recién exprimido",
         },
         {
           nombre: "Maracuyá y ginebra",
@@ -206,15 +207,15 @@ const RESTAURANTE = {
           nombre: "Copa de vino de la casa",
           descripcion: "Tinto o blanco. Pregunta por la botella abierta.",
           precio: 29000,
-          imagen: "",
-          alt: "",
+          imagen: "assets/fotos/plato-vino.jpg",
+          alt: "Copa de vino tinto de la casa",
         },
         {
           nombre: "Café de origen",
           descripcion: "Filtrado de la semana, en taza o para llevar.",
           precio: 9000,
-          imagen: "",
-          alt: "",
+          imagen: "assets/fotos/plato-cafe.jpg",
+          alt: "Taza de café de origen filtrado",
         },
       ],
     },

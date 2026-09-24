@@ -115,28 +115,34 @@
    * Lee RESTAURANTE.carta y arma las pestañas y los platos.
    * El diseño vive en css/estilos.css; los precios, aquí no se escriben a mano.
    */
-  function crearPlato(plato) {
+  function crearPlato(plato, indice) {
     const articulo = document.createElement("article");
-    articulo.className = "plato";
+    articulo.className = "plato revelar";
+    articulo.style.transitionDelay = (indice % 2) * 70 + "ms";
+
+    const marco = document.createElement("div");
+    marco.className = "plato-marco";
 
     if (plato.imagen) {
       const img = document.createElement("img");
       img.src = plato.imagen;
       img.alt = plato.alt || "";
-      img.width = 160;
-      img.height = 160;
+      img.width = 1152;
+      img.height = 864;
       img.loading = "lazy";
       img.decoding = "async";
       img.addEventListener("error", () => {
-        img.remove();
+        marco.remove();
         articulo.classList.add("sin-foto");
       });
-      articulo.appendChild(img);
+      marco.appendChild(img);
+      articulo.appendChild(marco);
     } else {
       articulo.classList.add("sin-foto");
     }
 
     const info = document.createElement("div");
+    info.className = "plato-cuerpo";
     const cabeza = document.createElement("div");
     cabeza.className = "plato-cabeza";
 
@@ -185,6 +191,14 @@
       panel.setAttribute("aria-labelledby", tab.id);
       panel.hidden = indice !== 0;
 
+      const marca = document.createElement("div");
+      marca.className = "categoria-marca";
+      const tituloCategoria = document.createElement("p");
+      tituloCategoria.className = "categoria-titulo";
+      tituloCategoria.textContent = categoria.nombre;
+      marca.appendChild(tituloCategoria);
+      panel.appendChild(marca);
+
       if (categoria.nota) {
         const nota = document.createElement("p");
         nota.className = "panel-nota";
@@ -194,7 +208,9 @@
 
       const lista = document.createElement("div");
       lista.className = "platos";
-      categoria.platos.forEach((plato) => lista.appendChild(crearPlato(plato)));
+      categoria.platos.forEach((plato, indicePlato) => {
+        lista.appendChild(crearPlato(plato, indicePlato));
+      });
       panel.appendChild(lista);
 
       pestanas.appendChild(tab);
@@ -219,6 +235,11 @@
           panel.classList.remove("entra");
           void panel.offsetWidth;
           panel.classList.add("entra");
+          panel.querySelectorAll(".revelar").forEach((nodo) => {
+            nodo.classList.remove("visible");
+            void nodo.offsetWidth;
+            nodo.classList.add("visible");
+          });
         }
       });
     }
