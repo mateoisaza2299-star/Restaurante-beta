@@ -111,43 +111,59 @@
   }
 
   /**
-   * Carta digital.
-   * Lee RESTAURANTE.carta y arma las pestañas y los platos.
-   * El diseño vive en css/estilos.css; los precios, aquí no se escriben a mano.
+   * Trazos de la carta. Van en terracota vía currentColor.
+   * No llevan relleno negro.
    */
-  function crearPlato(plato, indice) {
+  const DIBUJOS = {
+    tenedor: '<svg viewBox="0 0 40 72" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 8c.4 7 .2 14 2.2 20M20 6v22M26 8c-.4 7-.2 14-2.2 20M16 28c2.4 3.2 5.6 3.2 8 0M20 30v34"/></svg>',
+    cuchillo: '<svg viewBox="0 0 40 72" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M16 12c1-7 9-7 10 1l2 16c-1 5-9 5-11 0zM21 30v34"/></svg>',
+    cuchara: '<svg viewBox="0 0 40 72" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="20" cy="16" rx="8" ry="10"/><path d="M20 26v38"/></svg>',
+    batidor: '<svg viewBox="0 0 40 72" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 38c-12-8-12-24 0-28M20 38c12-8 12-24 0-28M20 38c-6-8-5-20 0-24M20 38c6-8 5-20 0-24M20 38v28"/></svg>',
+    sarten: '<svg viewBox="0 0 64 48" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="24" cy="26" rx="16" ry="10"/><path d="M40 26h16M12 20c4-6 16-6 22 0"/></svg>',
+    cucharon: '<svg viewBox="0 0 48 72" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="18" r="10"/><path d="M26 24l12 36"/></svg>',
+    copa: '<svg viewBox="0 0 40 72" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 8h20M12 8c-1 12 2 18 8 20 6-2 9-8 8-20M20 28v22M12 52h16"/></svg>',
+    taza: '<svg viewBox="0 0 48 56" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 12h18v16a9 9 0 0 1-18 0zM28 18h4a6 6 0 0 1 0 12h-4M8 46h28"/></svg>',
+    hoja: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 34C8 26 8 12 22 8c4 8 4 16-2 26zM20 34c0-8 2-14 8-18"/></svg>',
+    llama: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 34c-7-5-9-12-5-18 1 4 3 5 3 5 0-6 3-11 7-14-1 5 2 7 2 7 2-2 3-5 3-5 4 5 2 13-10 25z"/></svg>',
+    pastel: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 20h24v8H8zM10 20c2-6 6-8 10-8s8 2 10 8M20 12V8"/></svg>',
+    vaso: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 8h20l-4 14a8 8 0 0 1-12 0zM20 22v8M13 32h14"/></svg>',
+  };
+
+  const ESTANTE = ["tenedor", "cuchillo", "cuchara", "batidor", "sarten", "cucharon", "copa", "taza"];
+  const ICONO_CATEGORIA = {
+    entradas: "hoja",
+    fuertes: "llama",
+    postres: "pastel",
+    bebidas: "vaso",
+  };
+
+  function icono(nombre) {
+    const marca = document.createElement("span");
+    marca.className = "doodle";
+    marca.setAttribute("aria-hidden", "true");
+    marca.innerHTML = DIBUJOS[nombre] || "";
+    return marca;
+  }
+
+  /**
+   * Carta ilustrada.
+   * Lee RESTAURANTE.carta y pinta las categorías.
+   * No usa las fotos: el diseño vive en css/estilos.css.
+   */
+  function crearPlato(plato) {
     const articulo = document.createElement("article");
-    articulo.className = "plato revelar";
-    articulo.style.transitionDelay = (indice % 2) * 70 + "ms";
+    articulo.className = "plato";
 
-    const marco = document.createElement("div");
-    marco.className = "plato-marco";
+    const linea = document.createElement("div");
+    linea.className = "plato-linea";
 
-    if (plato.imagen) {
-      const img = document.createElement("img");
-      img.src = plato.imagen;
-      img.alt = plato.alt || "";
-      img.width = 1152;
-      img.height = 864;
-      img.loading = "lazy";
-      img.decoding = "async";
-      img.addEventListener("error", () => {
-        marco.remove();
-        articulo.classList.add("sin-foto");
-      });
-      marco.appendChild(img);
-      articulo.appendChild(marco);
-    } else {
-      articulo.classList.add("sin-foto");
-    }
-
-    const info = document.createElement("div");
-    info.className = "plato-cuerpo";
-    const cabeza = document.createElement("div");
-    cabeza.className = "plato-cabeza";
-
-    const titulo = document.createElement("h3");
+    const titulo = document.createElement("h4");
+    titulo.className = "plato-nombre";
     titulo.textContent = plato.nombre;
+
+    const puntos = document.createElement("span");
+    puntos.className = "puntos";
+    puntos.setAttribute("aria-hidden", "true");
 
     const precio = document.createElement("p");
     precio.className = "precio";
@@ -157,107 +173,63 @@
     descripcion.className = "descripcion";
     descripcion.textContent = plato.descripcion;
 
-    cabeza.append(titulo, precio);
-    info.append(cabeza, descripcion);
-    articulo.appendChild(info);
+    linea.append(titulo, puntos, precio);
+    articulo.append(linea, descripcion);
     return articulo;
+  }
+
+  function crearEstante() {
+    const estante = document.createElement("div");
+    estante.className = "estante";
+    estante.setAttribute("aria-hidden", "true");
+
+    const fila = document.createElement("div");
+    fila.className = "estante-fila";
+    ESTANTE.forEach((nombre) => fila.appendChild(icono(nombre)));
+
+    const tabla = document.createElement("div");
+    tabla.className = "estante-tabla";
+    estante.append(fila, tabla);
+    return estante;
   }
 
   function pintarCarta() {
     const raiz = document.getElementById("carta");
-    const pestanas = document.createElement("div");
-    pestanas.className = "pestanas";
-    pestanas.setAttribute("role", "tablist");
-    pestanas.setAttribute("aria-label", "Categorías de la carta");
+    const rejilla = document.createElement("div");
+    rejilla.className = "carta-rejilla";
 
-    const paneles = document.createElement("div");
-    paneles.className = "paneles";
+    datos.carta.forEach((categoria) => {
+      const caja = document.createElement("section");
+      caja.className = "categoria-caja revelar";
+      caja.id = "carta-" + categoria.id;
+      caja.setAttribute("aria-labelledby", "titulo-" + categoria.id);
 
-    datos.carta.forEach((categoria, indice) => {
-      const tab = document.createElement("button");
-      tab.type = "button";
-      tab.className = "pestana";
-      tab.id = "tab-" + categoria.id;
-      tab.setAttribute("role", "tab");
-      tab.setAttribute("aria-controls", "panel-" + categoria.id);
-      tab.setAttribute("aria-selected", indice === 0 ? "true" : "false");
-      tab.tabIndex = indice === 0 ? 0 : -1;
-      tab.textContent = categoria.nombre;
+      const cabeza = document.createElement("div");
+      cabeza.className = "categoria-cabeza";
+      cabeza.appendChild(icono(ICONO_CATEGORIA[categoria.id] || "hoja"));
 
-      const panel = document.createElement("div");
-      panel.className = "panel";
-      panel.id = "panel-" + categoria.id;
-      panel.setAttribute("role", "tabpanel");
-      panel.setAttribute("aria-labelledby", tab.id);
-      panel.hidden = indice !== 0;
-
-      const marca = document.createElement("div");
-      marca.className = "categoria-marca";
-      const tituloCategoria = document.createElement("p");
-      tituloCategoria.className = "categoria-titulo";
-      tituloCategoria.textContent = categoria.nombre;
-      marca.appendChild(tituloCategoria);
-      panel.appendChild(marca);
+      const titulo = document.createElement("h3");
+      titulo.className = "categoria-titulo";
+      titulo.id = "titulo-" + categoria.id;
+      titulo.textContent = categoria.nombre;
+      cabeza.appendChild(titulo);
+      caja.appendChild(cabeza);
 
       if (categoria.nota) {
         const nota = document.createElement("p");
         nota.className = "panel-nota";
         nota.textContent = categoria.nota;
-        panel.appendChild(nota);
+        caja.appendChild(nota);
       }
 
       const lista = document.createElement("div");
       lista.className = "platos";
-      categoria.platos.forEach((plato, indicePlato) => {
-        lista.appendChild(crearPlato(plato, indicePlato));
-      });
-      panel.appendChild(lista);
-
-      pestanas.appendChild(tab);
-      paneles.appendChild(panel);
+      categoria.platos.forEach((plato) => lista.appendChild(crearPlato(plato)));
+      caja.appendChild(lista);
+      rejilla.appendChild(caja);
     });
 
-    raiz.replaceChildren(pestanas, paneles);
-    iniciarPestanas(pestanas);
-  }
-
-  function iniciarPestanas(lista) {
-    const tabs = [...lista.querySelectorAll('[role="tab"]')];
-
-    function seleccionar(indice) {
-      tabs.forEach((tab, i) => {
-        const activo = i === indice;
-        tab.setAttribute("aria-selected", activo ? "true" : "false");
-        tab.tabIndex = activo ? 0 : -1;
-        const panel = document.getElementById(tab.getAttribute("aria-controls"));
-        panel.hidden = !activo;
-        if (activo) {
-          panel.classList.remove("entra");
-          void panel.offsetWidth;
-          panel.classList.add("entra");
-          panel.querySelectorAll(".revelar").forEach((nodo) => {
-            nodo.classList.remove("visible");
-            void nodo.offsetWidth;
-            nodo.classList.add("visible");
-          });
-        }
-      });
-    }
-
-    tabs.forEach((tab, indice) => {
-      tab.addEventListener("click", () => seleccionar(indice));
-      tab.addEventListener("keydown", (evento) => {
-        let siguiente = null;
-        if (evento.key === "ArrowRight") siguiente = (indice + 1) % tabs.length;
-        if (evento.key === "ArrowLeft") siguiente = (indice - 1 + tabs.length) % tabs.length;
-        if (evento.key === "Home") siguiente = 0;
-        if (evento.key === "End") siguiente = tabs.length - 1;
-        if (siguiente === null) return;
-        evento.preventDefault();
-        seleccionar(siguiente);
-        tabs[siguiente].focus();
-      });
-    });
+    raiz.replaceChildren(crearEstante(), rejilla);
   }
 
   function pintarGaleria() {

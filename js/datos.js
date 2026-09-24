@@ -13,20 +13,21 @@
  *  Escríbelos como número entero, en pesos, sin puntos
  *  ni signo de peso. Ejemplo: 46000 se muestra $46.000.
  *
- *  FOTOS
- *  Rutas relativas a index.html, dentro de assets/fotos/.
- *  Cada plato debe llevar su foto. Si falta, la carta
- *  igual muestra nombre, descripción y precio.
+ *  CARTA
+ *  Cada plato usa nombre, descripcion (una línea) y precio.
+ *  La carta ilustrada no muestra fotos. Los campos imagen
+ *  y alt pueden quedarse; el menú no los pinta.
  *
- *  PARA AGREGAR UN PLATO
- *  Copia un bloque dentro de la categoría y cambia los campos:
+ *  PARA AGREGAR O QUITAR UN PLATO
+ *  Copia o borra un bloque dentro de su categoría.
+ *  No hace falta tocar el HTML ni los estilos.
  *
  *    {
  *      nombre: "Nuevo plato",
  *      descripcion: "Una línea corta.",
  *      precio: 35000,
- *      imagen: "assets/fotos/mi-plato.jpg",
- *      alt: "Descripción de la foto"
+ *      imagen: "",
+ *      alt: ""
  *    },
  * ============================================================
  */
