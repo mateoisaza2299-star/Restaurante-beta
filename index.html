@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Casa Lumbre · Medellín</title>
+    <meta name="description" content="Casa Lumbre, cocina de fuego lento en El Poblado, Medellín. Carta, horarios y reservas.">
+    <meta name="theme-color" content="#F3EEE6">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <!--
+      Los datos editables (nombre, carta, precios, contacto)
+      viven en js/datos.js. Este HTML es solo la estructura.
+    -->
+    <script src="js/datos.js"></script>
+    <script>
+      (function () {
+        var precarga = document.createElement("link");
+        precarga.rel = "preload";
+        precarga.as = "image";
+        precarga.href = RESTAURANTE.hero.imagen;
+        document.head.appendChild(precarga);
+      })();
+    </script>
+    <link rel="stylesheet" href="css/estilos.css">
+  </head>
+  <body>
+    <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+    <header class="barra" id="barra">
+      <div class="barra-interior">
+        <a class="logo" id="logo" href="#inicio"></a>
+        <a class="enlace-menu" id="enlace-menu" href="#menu">Menú</a>
+        <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="navegacion">
+          <span class="sr-only">Abrir navegación</span>
+          <span class="hamburguesa" aria-hidden="true"></span>
+        </button>
+        <nav class="navegacion" id="navegacion" aria-label="Secciones"></nav>
+        <a class="btn" id="btn-reserva-nav" href="#reservar">Reservar mesa</a>
+      </div>
+    </header>
+
+    <main id="contenido">
+      <section class="hero" id="inicio" aria-labelledby="hero-titulo">
+        <img class="hero-foto" id="hero-foto" alt="" width="1280" height="720">
+        <div class="hero-velo" aria-hidden="true"></div>
+        <div class="hero-contenido">
+          <p class="ceja" id="hero-ceja"></p>
+          <h1 id="hero-titulo"></h1>
+          <p class="hero-frase" id="hero-frase"></p>
+          <div class="hero-acciones">
+            <a class="btn" href="#menu">Ver menú</a>
+            <a class="enlace-claro" id="btn-reserva-hero" href="#reservar">Reservar mesa</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="seccion" id="nosotros" aria-labelledby="acerca-titulo">
+        <div class="envoltorio acerca">
+          <div class="acerca-texto revelar">
+            <p class="ceja">Sobre nosotros</p>
+            <h2 id="acerca-titulo"></h2>
+            <div class="acerca-cuerpo" id="acerca-cuerpo"></div>
+          </div>
+          <figure class="acerca-foto revelar">
+            <div class="marco">
+              <img id="acerca-img" alt="" width="864" height="1152">
+            </div>
+            <figcaption id="acerca-pie"></figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- La carta se genera desde js/datos.js -->
+      <section class="seccion seccion-carta" id="menu" aria-labelledby="titulo-menu">
+        <div class="envoltorio">
+          <header class="seccion-cabecera revelar">
+            <p class="ceja">La carta</p>
+            <h2 id="titulo-menu">Menú</h2>
+            <p class="seccion-nota" id="menu-nota"></p>
+          </header>
+          <div class="carta" id="carta"></div>
+        </div>
+      </section>
+
+      <section class="seccion" id="galeria" aria-labelledby="titulo-galeria">
+        <div class="envoltorio">
+          <header class="seccion-cabecera revelar">
+            <p class="ceja">El lugar</p>
+            <h2 id="titulo-galeria">Galería</h2>
+          </header>
+          <div class="galeria" id="galeria-grid"></div>
+        </div>
+      </section>
+
+      <section class="seccion" id="visita" aria-labelledby="titulo-visita">
+        <div class="envoltorio visita">
+          <div class="visita-datos revelar" id="reservar">
+            <p class="ceja">Visítanos</p>
+            <h2 id="titulo-visita">Ubicación y horarios</h2>
+            <address class="direccion" id="direccion"></address>
+            <div class="contacto-lista">
+              <a id="telefono" href=""></a>
+              <a id="correo" href=""></a>
+            </div>
+            <dl class="horarios" id="horarios"></dl>
+            <p class="texto-reserva" id="texto-reserva"></p>
+            <a class="btn" id="btn-reserva-visita" href="#reservar">Reservar mesa</a>
+          </div>
+          <div class="mapa revelar">
+            <iframe
+              id="mapa"
+              title="Mapa del restaurante"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen>
+            </iframe>
+            <a class="enlace-suave" id="como-llegar" href="#" target="_blank" rel="noopener noreferrer">Cómo llegar</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="seccion" id="voces" aria-labelledby="titulo-voces">
+        <div class="envoltorio">
+          <header class="seccion-cabecera revelar">
+            <p class="ceja">La mesa</p>
+            <h2 id="titulo-voces">Testimonios</h2>
+          </header>
+          <div class="testimonios" id="lista-testimonios"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="pie" id="pie">
+      <div class="envoltorio">
+        <div class="pie-grid">
+          <div>
+            <p class="pie-nombre" id="pie-nombre"></p>
+            <p class="pie-tagline" id="pie-tagline"></p>
+          </div>
+          <div>
+            <p class="etiqueta">Contacto</p>
+            <div class="pie-direccion" id="pie-direccion"></div>
+            <ul class="lista-simple">
+              <li><a id="pie-telefono" href=""></a></li>
+              <li><a id="pie-correo" href=""></a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="etiqueta">Redes</p>
+            <ul class="lista-simple" id="pie-redes"></ul>
+          </div>
+        </div>
+        <div class="pie-reserva">
+          <a class="btn" id="btn-reserva-pie" href="#reservar">Reservar mesa</a>
+        </div>
+        <p class="legal" id="pie-legal"></p>
+      </div>
+    </footer>
+
+    <a class="whatsapp" id="whatsapp" href="#reservar" aria-label="Reservar mesa por WhatsApp">
+      <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+        <path fill="currentColor" d="M12.04 2C6.58 2 2.15 6.4 2.15 11.83c0 1.74.46 3.44 1.34 4.94L2 22l5.39-1.4a10 10 0 0 0 4.65 1.18h.01c5.46 0 9.89-4.4 9.89-9.83C21.94 6.4 17.5 2 12.04 2zm5.76 14.12c-.24.68-1.4 1.3-1.94 1.38-.5.08-1.12.11-1.81-.11-.42-.14-.95-.31-1.64-.6-2.88-1.24-4.76-4.14-4.9-4.33-.14-.19-1.16-1.54-1.16-2.94s.73-2.08 1-2.37c.24-.28.64-.41 1.02-.41.12 0 .23 0 .33.01.3.01.45.03.65.5.24.58.82 2 .89 2.15.07.14.12.32.02.51-.09.19-.14.31-.28.48-.14.16-.29.37-.42.49-.14.14-.28.29-.12.55.16.27.71 1.17 1.52 1.9 1.05.93 1.93 1.22 2.2 1.36.28.14.44.12.6-.07.16-.19.7-.81.88-1.09.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.46.21.53.32.07.12.07.68-.17 1.36z"/>
+      </svg>
+    </a>
+
+    <noscript>
+      <p class="noscript">Activa JavaScript para ver la carta y los datos de reserva.</p>
+    </noscript>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>
