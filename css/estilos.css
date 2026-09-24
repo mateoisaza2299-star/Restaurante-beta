@@ -1,0 +1,962 @@
+/* ============================================================
+   Casa Lumbre
+   Tres tonos: fondo cálido, tinta carbón, acento terracota.
+   La terracota solo aparece en botones, líneas e iconos.
+   ============================================================ */
+
+@font-face {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../assets/fuentes/outfit.woff2") format("woff2");
+}
+
+:root {
+  --fondo: #f3eee6;
+  --tinta: #1c1917;
+  --tinta-suave: rgba(28, 25, 23, 0.68);
+  --linea: rgba(28, 25, 23, 0.14);
+  --acento: #9c4a2e;
+  --acento-hover: #7e3b24;
+  --barra: 4.4rem;
+  --sombra-suave: 0 0 0 1px transparent;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--barra) + 0.5rem);
+}
+
+body {
+  margin: 0;
+  font-family: "Outfit", "Avenir Next", "Segoe UI", sans-serif;
+  font-weight: 300;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--tinta);
+  background: var(--fondo);
+}
+
+body.nav-abierta {
+  overflow: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: rgba(156, 74, 46, 0.16);
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+figure,
+blockquote,
+dl,
+dd,
+address {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: rgba(156, 74, 46, 0.22);
+  color: var(--tinta);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.saltar {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 80;
+  background: var(--tinta);
+  color: var(--fondo);
+  padding: 0.7rem 1rem;
+}
+
+.saltar:focus {
+  top: 0.8rem;
+}
+
+.envoltorio {
+  width: min(1120px, calc(100% - 2.4rem));
+  margin-inline: auto;
+}
+
+.seccion {
+  padding: 4.5rem 0;
+}
+
+.ceja {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 0.85rem;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.ceja::before {
+  content: "";
+  width: 1.6rem;
+  height: 1px;
+  background: var(--acento);
+  flex: 0 0 auto;
+}
+
+h1,
+h2 {
+  font-weight: 400;
+  letter-spacing: 0.045em;
+  line-height: 1.05;
+}
+
+h2 {
+  font-size: clamp(2.05rem, 4.4vw, 3.35rem);
+  margin-bottom: 1rem;
+}
+
+.seccion-nota,
+.panel-nota,
+.texto-reserva {
+  color: var(--tinta-suave);
+  max-width: 38rem;
+}
+
+/* ---------- Botón ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0.72rem 0.95rem;
+  border: 1px solid var(--acento);
+  background: var(--acento);
+  color: var(--fondo);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn:hover {
+  background: var(--acento-hover);
+  border-color: var(--acento-hover);
+}
+
+/* ---------- Barra fija ---------- */
+.barra {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  background: rgba(243, 238, 230, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.barra.con-borde {
+  border-bottom-color: var(--linea);
+  background: rgba(243, 238, 230, 0.96);
+}
+
+.barra-interior {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  height: var(--barra);
+  width: min(1200px, calc(100% - 1.5rem));
+  margin-inline: auto;
+}
+
+.logo {
+  margin-right: auto;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  font-size: 0.98rem;
+  white-space: nowrap;
+}
+
+.enlace-menu {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border-bottom: 1px solid transparent;
+  padding: 0.2rem 0;
+}
+
+.enlace-menu.activo,
+.navegacion a.activo {
+  border-bottom-color: var(--acento);
+}
+
+.nav-toggle {
+  width: 2.6rem;
+  height: 2.6rem;
+  border: 0;
+  background: transparent;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.hamburguesa,
+.hamburguesa::before,
+.hamburguesa::after {
+  display: block;
+  width: 1.1rem;
+  height: 1px;
+  background: var(--tinta);
+  position: relative;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.hamburguesa::before,
+.hamburguesa::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+
+.hamburguesa::before {
+  top: -6px;
+}
+
+.hamburguesa::after {
+  top: 6px;
+}
+
+.nav-toggle[aria-expanded="true"] .hamburguesa {
+  background: transparent;
+}
+
+.nav-toggle[aria-expanded="true"] .hamburguesa::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] .hamburguesa::after {
+  top: 0;
+  transform: rotate(-45deg);
+}
+
+.navegacion {
+  display: none;
+}
+
+.navegacion.abierto {
+  display: grid;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--fondo);
+  border-bottom: 1px solid var(--linea);
+  padding: 0.25rem 1.2rem 1rem;
+}
+
+.navegacion a {
+  display: block;
+  padding: 0.95rem 0;
+  border-top: 1px solid var(--linea);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  color: var(--fondo);
+}
+
+.hero-foto {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 45%;
+}
+
+.hero-velo {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(28, 25, 23, 0.78) 0%,
+    rgba(28, 25, 23, 0.32) 46%,
+    rgba(28, 25, 23, 0.16) 100%
+  );
+}
+
+.hero-contenido {
+  position: relative;
+  z-index: 1;
+  width: min(1120px, calc(100% - 2.4rem));
+  margin: 0 auto 5.2rem;
+  animation: subir 0.9s ease both;
+}
+
+.hero .ceja {
+  color: var(--fondo);
+}
+
+.hero h1 {
+  font-size: clamp(3.1rem, 11vw, 7.1rem);
+  letter-spacing: 0.04em;
+  line-height: 0.96;
+  font-weight: 400;
+  margin: 0.2rem 0 1rem;
+}
+
+.hero-frase {
+  max-width: 26rem;
+  font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+  font-weight: 300;
+  line-height: 1.45;
+  margin-bottom: 1.7rem;
+}
+
+.hero-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.25rem;
+}
+
+.enlace-claro {
+  color: var(--fondo);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--acento);
+  padding-bottom: 0.2rem;
+  transition: opacity 0.3s ease;
+}
+
+.enlace-claro:hover {
+  opacity: 0.78;
+}
+
+/* ---------- Sobre nosotros ---------- */
+.acerca {
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+}
+
+.acerca-texto {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.acerca-texto h2 {
+  margin-bottom: 0.35rem;
+}
+
+.acerca-cuerpo {
+  display: grid;
+  gap: 1rem;
+  max-width: 38rem;
+  color: var(--tinta);
+}
+
+.marco {
+  overflow: hidden;
+}
+
+.marco img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  object-position: center 22%;
+  transition: transform 0.7s ease;
+}
+
+.acerca-foto:hover .marco img {
+  transform: scale(1.03);
+}
+
+.acerca-foto figcaption {
+  margin-top: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+}
+
+/* ---------- Carta ----------
+   Las pestañas se quedan bajo la barra al hacer scroll.
+   No pongas transform ni overflow:hidden en un ancestro
+   de .pestanas: rompería ese anclaje. */
+.seccion-carta .seccion-cabecera {
+  margin-bottom: 1.75rem;
+}
+
+.carta {
+  max-width: 52rem;
+}
+
+.pestanas {
+  position: sticky;
+  top: var(--barra);
+  z-index: 20;
+  display: flex;
+  gap: 1.15rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  background: var(--fondo);
+  border-bottom: 1px solid var(--linea);
+  scroll-snap-type: x proximity;
+}
+
+.pestanas::-webkit-scrollbar {
+  display: none;
+}
+
+.pestana {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  padding: 0.95rem 0.05rem 0.75rem;
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(28, 25, 23, 0.46);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.pestana:hover,
+.pestana[aria-selected="true"] {
+  color: var(--tinta);
+}
+
+.pestana[aria-selected="true"] {
+  border-bottom-color: var(--acento);
+}
+
+.panel-nota {
+  margin: 1.35rem 0 0.25rem;
+}
+
+.platos {
+  border-bottom: 1px solid var(--linea);
+}
+
+.plato {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  gap: 0.85rem 1rem;
+  align-items: start;
+  padding: 1.15rem 0.15rem;
+  border-top: 1px solid var(--linea);
+  transition: background 0.3s ease;
+}
+
+.plato.sin-foto {
+  grid-template-columns: 1fr;
+}
+
+.plato:hover {
+  background: rgba(28, 25, 23, 0.035);
+}
+
+.plato img {
+  width: 4.5rem;
+  height: 4.5rem;
+  object-fit: cover;
+}
+
+.plato-cabeza {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.plato h3 {
+  font-size: 1.08rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.3;
+}
+
+.precio {
+  font-weight: 500;
+  font-size: 0.98rem;
+  letter-spacing: 0.03em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.descripcion {
+  margin-top: 0.3rem;
+  color: var(--tinta-suave);
+  font-size: 0.96rem;
+  line-height: 1.5;
+}
+
+.panel.entra {
+  animation: subir 0.45s ease;
+}
+
+/* ---------- Galería ---------- */
+.galeria {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+  margin-top: 0.5rem;
+}
+
+.galeria figure {
+  margin: 0;
+  overflow: hidden;
+  aspect-ratio: 1;
+  background: rgba(28, 25, 23, 0.05);
+}
+
+.galeria img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.65s ease;
+}
+
+.galeria figure:hover img {
+  transform: scale(1.045);
+}
+
+/* ---------- Ubicación ---------- */
+.visita {
+  display: grid;
+  gap: 2.25rem;
+}
+
+.direccion {
+  font-style: normal;
+  display: grid;
+  gap: 0.1rem;
+  margin: 1.15rem 0 1rem;
+}
+
+.contacto-lista {
+  display: grid;
+  gap: 0.2rem;
+  margin-bottom: 1.35rem;
+}
+
+.contacto-lista a {
+  border-bottom: 1px solid transparent;
+  width: fit-content;
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.contacto-lista a:hover,
+.lista-simple a:hover,
+.enlace-suave:hover {
+  color: var(--acento);
+  border-bottom-color: var(--acento);
+}
+
+.horarios {
+  display: grid;
+  gap: 0;
+  margin: 0 0 1.4rem;
+}
+
+.horarios div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-top: 1px solid var(--linea);
+}
+
+.horarios div:last-child {
+  border-bottom: 1px solid var(--linea);
+}
+
+.horarios dd {
+  text-align: right;
+  color: var(--tinta-suave);
+}
+
+.texto-reserva {
+  margin-bottom: 1rem;
+}
+
+.mapa {
+  min-height: 18rem;
+  border: 1px solid var(--linea);
+  background: rgba(28, 25, 23, 0.04);
+}
+
+.mapa iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 20rem;
+  border: 0;
+}
+
+.enlace-suave {
+  display: inline-block;
+  margin-top: 0.85rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 500;
+  border-bottom: 1px solid transparent;
+}
+
+/* ---------- Testimonios ---------- */
+.testimonios {
+  display: grid;
+  gap: 2.2rem;
+  margin-top: 0.5rem;
+}
+
+.cita {
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--acento);
+}
+
+.cita p {
+  font-size: 1.06rem;
+  line-height: 1.6;
+}
+
+.cita footer {
+  margin-top: 1.15rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.cita footer span {
+  display: block;
+  margin-top: 0.28rem;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  text-transform: none;
+  color: var(--tinta-suave);
+}
+
+/* ---------- Pie ---------- */
+.pie {
+  border-top: 1px solid var(--linea);
+  padding: 3.5rem 0 6.5rem;
+}
+
+.pie-grid {
+  display: grid;
+  gap: 2.2rem;
+}
+
+.pie-nombre {
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.55rem;
+}
+
+.pie-tagline {
+  color: var(--tinta-suave);
+  max-width: 22rem;
+}
+
+.etiqueta {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.pie-direccion {
+  display: grid;
+  gap: 0.1rem;
+  margin-bottom: 0.7rem;
+}
+
+.lista-simple {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.lista-simple a {
+  border-bottom: 1px solid transparent;
+  width: fit-content;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.pie-reserva {
+  margin-top: 1.6rem;
+}
+
+.legal {
+  margin-top: 2.6rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--linea);
+  color: var(--tinta-suave);
+  font-size: 0.82rem;
+}
+
+/* ---------- WhatsApp flotante ---------- */
+.whatsapp {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 45;
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 50%;
+  background: var(--acento);
+  color: var(--fondo);
+  display: grid;
+  place-items: center;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.whatsapp:hover {
+  background: var(--acento-hover);
+  transform: translateY(-2px);
+}
+
+.noscript {
+  padding: 6rem 1.2rem 2rem;
+  text-align: center;
+}
+
+/* ---------- Aparición al desplazar ---------- */
+.revelar {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.revelar.visible {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes subir {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Escritorio ---------- */
+@media (min-width: 700px) {
+  .plato {
+    grid-template-columns: 5.25rem 1fr;
+    gap: 1rem 1.2rem;
+    padding: 1.35rem 0.25rem;
+  }
+
+  .plato img {
+    width: 5.25rem;
+    height: 5.25rem;
+  }
+
+  .plato h3 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (min-width: 800px) {
+  .galeria {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .testimonios {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
+  }
+}
+
+@media (min-width: 860px) {
+  .acerca {
+    grid-template-columns: 1.05fr 0.82fr;
+    gap: 5rem;
+  }
+
+  .marco img {
+    aspect-ratio: 3 / 4;
+  }
+
+  .visita {
+    grid-template-columns: 0.86fr 1.14fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .mapa,
+  .mapa iframe {
+    min-height: 28rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .envoltorio,
+  .hero-contenido {
+    width: min(1120px, calc(100% - 5rem));
+  }
+
+  .seccion {
+    padding: 7rem 0;
+  }
+
+  .barra-interior {
+    width: min(1200px, calc(100% - 4rem));
+    gap: 1.4rem;
+  }
+
+  .logo {
+    margin-right: 0;
+    font-size: 1.05rem;
+  }
+
+  .enlace-menu,
+  .nav-toggle {
+    display: none;
+  }
+
+  .navegacion,
+  .navegacion.abierto {
+    display: flex;
+    position: static;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    margin-right: auto;
+    gap: 1.45rem;
+    align-items: center;
+  }
+
+  .navegacion a {
+    display: inline-block;
+    padding: 0.2rem 0;
+    border-top: 0;
+    border-bottom: 1px solid transparent;
+    color: rgba(28, 25, 23, 0.72);
+    transition: color 0.3s ease, border-color 0.3s ease;
+  }
+
+  .navegacion a:hover,
+  .navegacion a.activo {
+    color: var(--tinta);
+  }
+
+  .btn {
+    padding: 0.8rem 1.15rem;
+    letter-spacing: 0.16em;
+    font-size: 0.72rem;
+  }
+
+  .pie-grid {
+    grid-template-columns: 1.4fr 1fr 0.8fr;
+    gap: 2rem;
+  }
+
+  body.nav-abierta {
+    overflow: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .revelar,
+  .panel.entra,
+  .hero-contenido,
+  .galeria img,
+  .marco img,
+  .btn,
+  .whatsapp,
+  .barra {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .revelar {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
