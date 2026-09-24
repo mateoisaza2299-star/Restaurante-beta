@@ -38,8 +38,7 @@ const RESTAURANTE = {
   tagline: "Fuego lento y producto de temporada.",
   titular: "Una casa, una brasa, pocos platos.",
   historia: [
-    "Casa Lumbre ocupa una casa de 1948 en El Poblado. La cocina trabaja con brasa y horno, y con pocos proveedores: huertas del Oriente antioqueño, pescado del Pacífico y quesos de Boyacá.",
-    "La carta es corta a propósito. Cambia con la semana, pero el gesto se mantiene: fuego lento y un plato que se entiende a la primera.",
+    "Casa de 1948 en El Poblado. Brasa, horno y una carta corta que cambia con la semana.",
   ],
   notaCarta: "Precios en pesos colombianos. La carta sigue al mercado de la semana.",
 

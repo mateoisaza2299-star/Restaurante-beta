@@ -410,51 +410,38 @@ h2 {
 }
 
 /* ---------- Sobre nosotros ---------- */
+#nosotros {
+  padding-top: 2.75rem;
+  padding-bottom: 2.75rem;
+}
+
 .acerca {
-  display: grid;
-  gap: 2rem;
-  align-items: center;
+  max-width: 40rem;
+  margin-inline: auto;
+  text-align: center;
 }
 
 .acerca-texto {
   display: grid;
-  gap: 0.9rem;
+  gap: 0.75rem;
+  justify-items: center;
+}
+
+.acerca .ceja {
+  justify-content: center;
 }
 
 .acerca-texto h2 {
-  margin-bottom: 0.35rem;
+  margin-bottom: 0;
+  font-size: clamp(1.75rem, 3.2vw, 2.2rem);
 }
 
 .acerca-cuerpo {
-  display: grid;
-  gap: 1rem;
-  max-width: 38rem;
-  color: var(--tinta);
+  max-width: 36rem;
 }
 
-.marco {
-  overflow: hidden;
-}
-
-.marco img {
-  width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
-  object-position: center 22%;
-  transition: transform 0.7s ease;
-}
-
-.acerca-foto:hover .marco img {
-  transform: scale(1.03);
-}
-
-.acerca-foto figcaption {
-  margin-top: 0.75rem;
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--tinta-suave);
+.acerca-cuerpo p {
+  margin: 0;
 }
 
 /* ---------- Carta ilustrada ----------
@@ -882,13 +869,9 @@ h2 {
 }
 
 @media (min-width: 860px) {
-  .acerca {
-    grid-template-columns: 1.05fr 0.82fr;
-    gap: 5rem;
-  }
-
-  .marco img {
-    aspect-ratio: 3 / 4;
+  #nosotros {
+    padding-top: 3.25rem;
+    padding-bottom: 3.25rem;
   }
 
   .visita {
@@ -979,7 +962,6 @@ h2 {
   .panel.entra,
   .hero-contenido,
   .galeria img,
-  .marco img,
   .btn,
   .whatsapp,
   .barra {
