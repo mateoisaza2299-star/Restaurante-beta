@@ -82,6 +82,10 @@
       cuerpo.appendChild(p);
     });
 
+    const retrato = document.getElementById("acerca-img");
+    retrato.src = datos.retrato.imagen;
+    retrato.alt = datos.retrato.alt;
+    document.getElementById("acerca-pie").textContent = datos.retrato.pie;
     document.getElementById("menu-nota").textContent = datos.notaCarta;
 
     ["btn-reserva-nav", "btn-reserva-hero", "btn-reserva-visita"].forEach((id) => {
