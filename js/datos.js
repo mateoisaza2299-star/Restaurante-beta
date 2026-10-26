@@ -31,6 +31,9 @@
  *    },
  * ============================================================
  */
+/** Único WhatsApp de reservas. Si no hay número real, el valor es "PENDIENTE". */
+const WHATSAPP_RESERVAS = "+57 310 321 8845";
+
 const RESTAURANTE = {
   /* ---------- Identidad ---------- */
   nombre: "Casa Lumbre",
@@ -57,8 +60,8 @@ const RESTAURANTE = {
   /* ---------- Contacto, horarios y mapa ---------- */
   /* Teléfono visible. El enlace tel: se arma solo. */
   telefono: "+57 604 322 4810",
-  /* WhatsApp con indicativo de país, sin espacios obligatorios. */
-  whatsapp: "+57 310 321 8845",
+  /* WhatsApp con indicativo de país. La fuente es WHATSAPP_RESERVAS. */
+  whatsapp: WHATSAPP_RESERVAS,
   mensajeWhatsapp: "Hola, quiero reservar una mesa en Casa Lumbre.",
   textoReserva: "Escríbenos por WhatsApp y confirmamos la mesa.",
   correo: "hola@casalumbre.co",

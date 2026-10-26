@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mateoisaza2299-star.github.io/Restaurante-beta/sitemap.xml

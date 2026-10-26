@@ -1,7 +1,7 @@
 /* ============================================================
    Casa Lumbre
-   Tres tonos: fondo cálido, tinta carbón, acento terracota.
-   La terracota solo aparece en botones, líneas e iconos.
+   Fondo crema, tinta cálida y acento tierra/ámbar.
+   El acento va en botones, líneas e iconos.
    ============================================================ */
 
 @font-face {
@@ -23,10 +23,11 @@
 :root {
   --fondo: #f3eee6;
   --tinta: #1c1917;
-  --tinta-suave: rgba(28, 25, 23, 0.68);
-  --linea: rgba(28, 25, 23, 0.14);
-  --acento: #9c4a2e;
-  --acento-hover: #7e3b24;
+  --tinta-suave: #4e463f;
+  --linea: rgba(28, 25, 23, 0.16);
+  --acento: #8e4b24;
+  --acento-hover: #6f3a1b;
+  --ambar: #a56b32;
   --barra: 4.4rem;
   --sombra-suave: 0 0 0 1px transparent;
 }
@@ -40,10 +41,12 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--barra) + 0.5rem);
+  overflow-x: clip;
 }
 
 body {
   margin: 0;
+  overflow-x: clip;
   font-family: "Outfit", "Avenir Next", "Segoe UI", sans-serif;
   font-weight: 300;
   font-size: 1.05rem;
@@ -68,7 +71,7 @@ a {
 
 button,
 a {
-  -webkit-tap-highlight-color: rgba(156, 74, 46, 0.16);
+  -webkit-tap-highlight-color: rgba(142, 75, 36, 0.16);
 }
 
 h1,
@@ -100,7 +103,7 @@ button {
 }
 
 ::selection {
-  background: rgba(156, 74, 46, 0.22);
+  background: rgba(142, 75, 36, 0.22);
   color: var(--tinta);
 }
 
@@ -154,15 +157,17 @@ button {
   content: "";
   width: 1.6rem;
   height: 1px;
-  background: var(--acento);
+  background: var(--ambar);
   flex: 0 0 auto;
 }
 
 h1,
-h2 {
-  font-weight: 400;
-  letter-spacing: 0.045em;
-  line-height: 1.05;
+h2,
+h3 {
+  font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  line-height: 1.08;
 }
 
 h2 {
@@ -229,6 +234,9 @@ h2 {
 
 .logo {
   margin-right: auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-weight: 500;
   letter-spacing: 0.06em;
   font-size: 0.98rem;
@@ -250,8 +258,9 @@ h2 {
 }
 
 .nav-toggle {
-  width: 2.6rem;
-  height: 2.6rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: 0 0 auto;
   border: 0;
   background: transparent;
   display: grid;
@@ -334,6 +343,7 @@ h2 {
   align-items: flex-end;
   overflow: hidden;
   color: var(--fondo);
+  background: #1c1917;
 }
 
 .hero-foto {
@@ -540,7 +550,8 @@ h2 {
 
 .categoria-titulo {
   margin: 0;
-  font-family: "Caveat", cursive;
+  font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  overflow-wrap: break-word;
   font-weight: 600;
   font-size: clamp(2.05rem, 5vw, 2.65rem);
   line-height: 0.95;
@@ -656,6 +667,14 @@ h2 {
   transition: border-color 0.3s ease, color 0.3s ease;
 }
 
+.contacto-lista a,
+.lista-simple a,
+.enlace-suave {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
 .contacto-lista a:hover,
 .lista-simple a:hover,
 .enlace-suave:hover {
@@ -671,10 +690,12 @@ h2 {
 
 .horarios div {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 0.25rem 1rem;
   padding: 0.75rem 0;
   border-top: 1px solid var(--linea);
+  min-width: 0;
 }
 
 .horarios div:last-child {
@@ -682,8 +703,11 @@ h2 {
 }
 
 .horarios dd {
+  margin-left: auto;
+  min-width: 0;
   text-align: right;
   color: var(--tinta-suave);
+  overflow-wrap: anywhere;
 }
 
 .texto-reserva {
@@ -830,12 +854,15 @@ h2 {
 }
 
 .noscript {
-  padding: 6rem 1.2rem 2rem;
+  margin: 0;
+  padding: 5.4rem 1.2rem 1rem;
   text-align: center;
+  background: #efe4d4;
+  color: var(--tinta);
 }
 
 /* ---------- Aparición al desplazar ---------- */
-.revelar {
+.animar .revelar {
   opacity: 0;
   transform: translateY(16px);
   transition: opacity 0.8s ease, transform 0.8s ease;
@@ -976,19 +1003,220 @@ h2 {
   }
 
   .revelar,
+  .animar .revelar,
   .panel.entra,
   .hero-contenido,
   .galeria img,
+  .galeria-btn img,
   .marco img,
   .btn,
+  .pestana,
   .whatsapp,
-  .barra {
+  .barra,
+  .lightbox {
     animation: none !important;
     transition: none !important;
   }
 
-  .revelar {
+  .revelar,
+  .animar .revelar {
     opacity: 1 !important;
     transform: none !important;
+  }
+}
+
+/* ---------- Carta: pestañas ---------- */
+.pestanas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0 0 1.25rem;
+}
+
+.pestana {
+  min-height: 2.75rem;
+  padding: 0.45rem 0.8rem;
+  border: 1px solid var(--acento);
+  background: transparent;
+  color: var(--tinta);
+  font-family: "Outfit", "Avenir Next", "Segoe UI", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.pestana[aria-selected="true"] {
+  background: var(--acento);
+  color: var(--fondo);
+}
+
+.aviso-datos {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--tinta);
+  background: rgba(142, 75, 36, 0.08);
+  border: 1px solid var(--linea);
+  padding: 1rem 1.1rem;
+}
+
+#aviso-global {
+  margin: 0;
+  padding: 5.2rem 1.2rem 1rem;
+  text-align: center;
+}
+
+/* ---------- Galería: botón y lightbox ---------- */
+.galeria-btn {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+  color: inherit;
+}
+
+.lightbox {
+  width: min(56rem, calc(100vw - 1.5rem));
+  max-width: calc(100vw - 1.5rem);
+  max-height: calc(100vh - 1.5rem);
+  padding: 0;
+  border: 0;
+  background: #1c1917;
+  color: #f3eee6;
+}
+
+.lightbox::backdrop {
+  background: rgba(28, 25, 23, 0.86);
+}
+
+.lightbox-barra {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.4rem;
+  padding: 0.45rem;
+}
+
+.lightbox-barra button {
+  min-height: 2.75rem;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid rgba(243, 238, 230, 0.5);
+  background: transparent;
+  color: #f3eee6;
+  cursor: pointer;
+}
+
+.lightbox img {
+  width: 100%;
+  max-height: calc(100vh - 6rem);
+  object-fit: contain;
+  background: #1c1917;
+}
+
+/* ---------- Reserva ---------- */
+.form-reserva {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+  margin-top: 1.4rem;
+  max-width: 44rem;
+}
+
+.campo {
+  display: grid;
+  gap: 0.35rem;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.campo label {
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.campo input,
+.campo textarea {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 2.75rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid rgba(28, 25, 23, 0.28);
+  background: #fbf6ef;
+  color: var(--tinta);
+  color-scheme: light;
+  font: inherit;
+}
+
+.campo textarea {
+  min-height: 6.5rem;
+  resize: vertical;
+}
+
+.campo input::placeholder,
+.campo textarea::placeholder {
+  color: #5c534c;
+}
+
+.campo input[aria-invalid="true"],
+.campo textarea[aria-invalid="true"] {
+  border-color: #7a2e24;
+}
+
+.form-error {
+  margin: 0;
+  color: #7a2e24;
+  font-size: 0.98rem;
+}
+
+.direccion span,
+.pie-direccion span {
+  overflow-wrap: anywhere;
+}
+
+.enlace-menu,
+#btn-reserva-nav,
+.nav-toggle {
+  flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+  .barra-interior {
+    width: calc(100% - 1rem);
+    gap: 0.35rem;
+  }
+
+  .logo {
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+  }
+
+  .enlace-menu {
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+  }
+
+  #btn-reserva-nav {
+    padding: 0.55rem 0.6rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+  }
+}
+
+@media (min-width: 760px) {
+  .form-reserva {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .campo-ancho,
+  .form-reserva .form-error,
+  .form-reserva .btn {
+    grid-column: 1 / -1;
   }
 }
